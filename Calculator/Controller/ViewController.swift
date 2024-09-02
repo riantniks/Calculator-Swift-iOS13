@@ -33,14 +33,14 @@ class ViewController: UIViewController {
         isFinishedTypingNumber = true
         
         if let calcMethod = sender.currentTitle {
+
+            let calculator = CalculatorLogic(number: displayValue)
             
-            if calcMethod == "+/-" {
-                displayValue = displayValue * -1        //displayValue *= -1
-            } else if calcMethod == "%" {
-                displayValue = displayValue * 0.01      //displayValue *= 0.01
-            } else if calcMethod == "AC" {
-                displayLabel.text = "0"
+            guard let result = calculator.calculate(symbol: calcMethod) else {
+                fatalError("The result of calculation is indeterminate")
             }
+            
+            displayValue = result
         }
     
     }
