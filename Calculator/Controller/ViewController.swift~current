@@ -26,21 +26,21 @@ class ViewController: UIViewController {
         }
     }
     
-    private var calculator = CalculatorLogic()
-    
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
 
         isFinishedTypingNumber = true
         
-        calculator.setNumber(displayValue)  //because external parameter name is set to nothing by using '_'
-        
         if let calcMethod = sender.currentTitle {
 
-            if let result = calculator.calculate(symbol: calcMethod) {
-                displayValue = result
+            let calculator = CalculatorLogic(number: displayValue)
+            
+            guard let result = calculator.calculate(symbol: calcMethod) else {
+                fatalError("The result of calculation is indeterminate")
             }
+            
+            displayValue = result
         }
     
     }
